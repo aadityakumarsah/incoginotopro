@@ -127,9 +127,9 @@ const Home = () => {
 
   return (
     <>
-      <Nav />
+      {status !== "chatting" && <Nav />}
 
-      <main className="relative min-h-screen w-full overflow-hidden bg-[#050505] text-white">
+      <main className="relative min-h-[100dvh] w-full overflow-hidden bg-[#050505] text-white flex flex-col">
         {/* Background Glow */}
         <div className="absolute left-[-5%] top-[-10%] h-[500px] w-[500px] rounded-full bg-purple-600/10 blur-[120px]" />
 
@@ -137,7 +137,7 @@ const Home = () => {
 
         {status === "idle" ||
         status === "waiting" ? (
-          <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-6 text-center">
+          <div className="relative z-10 flex min-h-[100dvh] flex-col items-center justify-center px-6 text-center">
             <div className="mb-8 rounded-2xl border border-white/10 bg-white/5 p-3 backdrop-blur-md">
               <Sparkles className="h-7 w-7 text-white/90" />
             </div>
@@ -175,27 +175,27 @@ const Home = () => {
             </button>
           </div>
         ) : (
-          <div className="relative z-10 flex h-screen w-full flex-col">
-            <div className="relative flex-1">
+          <div className="relative z-10 flex h-[100dvh] w-full flex-col overflow-hidden">
+            <div className="relative flex-1 h-full">
               <div
                 ref={videoContainerRef}
-                className="h-full w-full"
+                className="h-full w-full zego-container"
               />
 
               {/* Controls */}
-              <div className="absolute bottom-8 left-1/2 z-50 flex -translate-x-1/2 items-center gap-4">
+              <div className="absolute top-6 left-1/2 z-50 flex -translate-x-1/2 items-center gap-4 w-max">
                 <button
                   onClick={() =>
                     window.location.reload()
                   }
-                  className="rounded-2xl border border-red-500/50 bg-red-500/20 p-4 backdrop-blur-xl transition-all active:scale-95"
+                  className="rounded-2xl border border-red-500/50 bg-red-500/20 p-4 backdrop-blur-xl transition-all active:scale-95 hover:bg-red-500/30"
                 >
                   <X className="h-6 w-6 text-red-500" />
                 </button>
 
                 <button
                   onClick={nextChat}
-                  className="flex items-center gap-2 rounded-2xl border border-white/20 bg-white/10 px-8 py-4 font-bold backdrop-blur-xl transition-all active:scale-95"
+                  className="flex items-center gap-2 rounded-2xl border border-white/20 bg-white/10 px-8 py-4 font-bold backdrop-blur-xl transition-all active:scale-95 hover:bg-white/20"
                 >
                   <SkipForward className="h-5 w-5" />
 
