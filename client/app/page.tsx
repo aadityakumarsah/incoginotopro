@@ -60,6 +60,16 @@ const Home = () => {
     };
   }, []);
 
+  // Auto Start when socket is ready
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (status === "idle" && socketRef.current) {
+        startChat();
+      }
+    }, 1000); // Small delay to ensure socket is fully ready
+    return () => clearTimeout(timer);
+  }, [status, socketRef.current]);
+
   // Start Chat
   const startChat = () => {
     socketRef.current?.emit("start");
@@ -182,26 +192,7 @@ const Home = () => {
                 className="h-full w-full zego-container"
               />
 
-              {/* Controls */}
-              <div className="absolute top-6 left-1/2 z-50 flex -translate-x-1/2 items-center gap-4 w-max">
-                <button
-                  onClick={() =>
-                    window.location.reload()
-                  }
-                  className="rounded-2xl border border-red-500/50 bg-red-500/20 p-4 backdrop-blur-xl transition-all active:scale-95 hover:bg-red-500/30"
-                >
-                  <X className="h-6 w-6 text-red-500" />
-                </button>
 
-                <button
-                  onClick={nextChat}
-                  className="flex items-center gap-2 rounded-2xl border border-white/20 bg-white/10 px-8 py-4 font-bold backdrop-blur-xl transition-all active:scale-95 hover:bg-white/20"
-                >
-                  <SkipForward className="h-5 w-5" />
-
-                  <span>Next Person</span>
-                </button>
-              </div>
             </div>
           </div>
         )}
